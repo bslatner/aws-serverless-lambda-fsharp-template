@@ -1,0 +1,55 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Transform" : "AWS::Serverless-2016-10-31",
+  "Description" : "An AWS Serverless Application.",
+
+  "Resources" : {
+
+    "Home" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "FSharpLambda::FSharpLambda.Program::Home",
+        "Runtime": "dotnetcore1.0",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaBasicExecutionRole" ],
+        "Events": {
+          "PutResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+
+    "Foo" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "FSharpLambda::FSharpLambda.Program::Foo",
+        "Runtime": "dotnetcore1.0",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaBasicExecutionRole" ],
+        "Events": {
+          "PutResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/foo",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "Outputs" : {
+  }
+}
