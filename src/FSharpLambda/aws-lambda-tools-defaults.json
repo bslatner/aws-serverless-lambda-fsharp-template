@@ -1,0 +1,39 @@
+
+{
+    "Information" : [
+        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+        "dotnet lambda help",
+
+        "All the command line options for the Lambda command can be specified in this file.",
+        
+        "To get started, you MUST provide values for the following properties, or specify them on the command line:",
+        "profile",
+        "region",
+        "s3-bucket",
+
+        "The following properties are available:",
+        "profile = The name of the AWS profile to use to deploy the application",
+        "region              = The AWS region to deploy to",
+        "configuration       = The configuration to deploy",
+        "framework           = The version of the .NET framework",
+        "template            = The CloudFormation template to deploy the application stack",
+        "template-parameters = Any parameters to pass to the template",
+        "s3-bucket           = The name of the S3 bucket to which the code is uploaded",
+        "s3-prefix           = The prefix added to the name of the deployment package when uploaded to S3",
+        "stack-name          = The name of the CloudFormation stack",
+        "stack-wait          = Wait for the CloudFormation stack to finish updating before exiting"
+        
+
+    ],
+    "profile"             : "",
+    "region"              : "",
+    "configuration"       : "Release",
+    "framework"           : "netcoreapp1.0",
+    "template"            : "serverless.template",
+    "template-parameters" : "",
+    "s3-bucket"           : "",
+    "s3-prefix"           : "FSharpLambda/",
+    "stack-name"          : "FSharpLambda",
+    "stack-wait"          : false
+}
