@@ -11,7 +11,7 @@ do ()
 
 module Program =
 
-    let Home(request : APIGatewayProxyResponse, context : ILambdaContext): APIGatewayProxyResponse = 
+    let Home(request : APIGatewayProxyRequest, context : ILambdaContext): APIGatewayProxyResponse = 
         context.Logger.LogLine("Request for Home")
 
         let headers = Dictionary<string, string>()
@@ -23,7 +23,7 @@ module Program =
 
         response
 
-    let Foo(request : APIGatewayProxyResponse, context : ILambdaContext): APIGatewayProxyResponse = 
+    let Foo(request : APIGatewayProxyRequest, context : ILambdaContext): APIGatewayProxyResponse = 
         context.Logger.LogLine("Request for Foo")
 
         let headers = Dictionary<string, string>()
