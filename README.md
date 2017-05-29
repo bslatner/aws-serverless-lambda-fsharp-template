@@ -31,7 +31,7 @@ The project consists of:
 
     The S3 bucket to which the deployment tool will upload your code.
 
-* `project.json`
+* `FSharpLambda.fsproj`
 
   The project file that contains all the proper references to AWS NuGet packages and 
   the AWS Lambda tooling.
