@@ -9,7 +9,7 @@
       "Type" : "AWS::Serverless::Function",
       "Properties": {
         "Handler": "FSharpLambda::FSharpLambda.Program::Home",
-        "Runtime": "dotnetcore1.0",
+        "Runtime": "dotnetcore2.0",
         "CodeUri": "",
         "MemorySize": 256,
         "Timeout": 30,
@@ -31,7 +31,7 @@
       "Type" : "AWS::Serverless::Function",
       "Properties": {
         "Handler": "FSharpLambda::FSharpLambda.Program::Foo",
-        "Runtime": "dotnetcore1.0",
+        "Runtime": "dotnetcore2.0",
         "CodeUri": "",
         "MemorySize": 256,
         "Timeout": 30,
