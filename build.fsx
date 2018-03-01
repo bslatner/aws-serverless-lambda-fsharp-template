@@ -1,54 +1,48 @@
 // include Fake lib
-#r @"packages/FAKE.Core/tools/FakeLib.dll"
-#r @"packages/FAKE.Dotnet/tools/Fake.Dotnet.dll"
+#r @"packages/FAKE/tools/FakeLib.dll"
 open Fake
-open Fake.Dotnet
+open Fake.Core
+open Fake.Core.Globbing.Operators
+open Fake.Core.TargetOperators
+open Fake.DotNet.Cli
 
 // Properties
 let artifactsDir = "artifacts"
-DefaultDotnetCliDir <- "C:\\Program Files\\dotnet"
-let DotnetExe = DefaultDotnetCliDir @@ "dotnet.exe"
 
 // Helpers
 
-let DotnetLambdaDeploy proj =
-    let p = {
-        CustomParams = None
-        DotnetCliPath = DotnetExe
-        WorkingDirectory = directory proj
-    }
-    Dotnet p ("lambda deploy-serverless") |> ignore
+let DotNetLambdaDeploy proj =
+    DotNet (fun p -> { p with WorkingDirectory = directory proj }) "lambda" "deploy-serverless"
+    |> ignore
 
 // Targets
-Target "Clean" (fun _ ->
+Target.Create "Initialize" <| fun _ ->
+    DotNetCliInstall (fun p -> { p with Version = DotNetCliVersion.Version "2.0.0" })
+
+Target.Create "Clean" <| fun _ ->
     !! artifactsDir ++ "src/*/bin"  ++ "src/*/obj"
         |> DeleteDirs
-)
 
-Target "BuildProjects" (fun _ ->
-    !! "src/*/project.json" 
+Target.Create "BuildProjects" <| fun _ ->
+    !! "src/*/*.fsproj" 
         |> Seq.iter(fun proj ->  
-
-            // restore project dependencies
-            DotnetRestore id proj
-
             // build project and produce outputs
-            DotnetCompile id proj
+            DotNetCompile id proj
         )
-)
 
-Target "DeployLambda" (fun _ ->
-    "src/FSharpLambda/project.json"
-    |> DotnetLambdaDeploy
-)
+Target.Create "DeployLambda" <| fun _ ->
+    "src/FSharpLambda/FSharpLambda.fsproj"
+    |> DotNetLambdaDeploy
 
-Target "Default" <| DoNothing
+
+Target.Create "Default" <| Target.DoNothing
 
 // Dependencies
-"Clean"
+"Initialize"
+    ==> "Clean"
     ==> "BuildProjects"
     ==> "DeployLambda"
     ==> "Default"
 
 // start build
-RunTargetOrDefault "Default"
+Target.RunOrDefault "Default"

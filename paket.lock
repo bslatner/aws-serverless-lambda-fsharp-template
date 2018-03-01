@@ -1,4 +1,3 @@
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE.Core (4.52)
-    FAKE.Dotnet (1.1.1)
+    FAKE (5.0.0-beta020)
